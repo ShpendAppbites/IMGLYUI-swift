@@ -21,20 +21,7 @@ struct PlayerBarView: View {
         .padding(.leading)
       Spacer()
     } trailing: {
-      ToggleButton(
-        isEnabled: interactor.isLoopingPlaybackEnabled,
-        icon: Image("custom.video.repeat", bundle: .module),
-        disabledIcon: Image("custom.video.repeat.slash", bundle: .module),
-        changeCallback: {
-          interactor.toggleIsLoopingPlaybackEnabled()
-        }
-      )
-      .accessibilityLabel("Loop Playback")
-      .font(.system(size: 18))
-      .padding(.horizontal, 8)
-
       Spacer()
-
       if verticalSizeClass != .compact {
         Button {
           toggleTimeline()

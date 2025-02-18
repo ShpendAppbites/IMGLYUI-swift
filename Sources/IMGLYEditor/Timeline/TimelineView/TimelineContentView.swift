@@ -35,25 +35,26 @@ struct TimelineContentView: View {
       ScrollView(.vertical, showsIndicators: false) {
         ScrollViewReader { proxy in
           VStack(spacing: 0) {
-            VStack(alignment: .leading, spacing: configuration.trackSpacing) {
-              ForEach(dataSource.tracks.reversed(), id: \.self) { track in
-                TrackView(track: track)
-                  .frame(height: configuration.trackHeight)
-              }
-              AddAudioButton()
-            }
-            .background {
-              // Measure the width of all contained clips, including the overflow.
-              GeometryReader { geometry in
-                Color.clear
-                  .preference(key: TimelineOverflowSizeKey.self, value: geometry.size.width)
-              }
-            }
-            .onPreferenceChange(TimelineOverflowSizeKey.self) { width in
-              overflowWidth = width
-            }
-            .padding(.horizontal, viewportWidth / 2)
-            .padding(.trailing, -(overflowWidth - (timeline.totalWidth)))
+//            VStack(alignment: .leading, spacing: 2) {
+//              ForEach(dataSource.tracks.reversed(), id: \.self) { track in
+//                TrackView(track: track)
+//                  .frame(height: 30)
+//              }
+////              AddAudioButton()
+//            }
+//            .background {
+//              // Measure the width of all contained clips, including the overflow.
+//              GeometryReader { geometry in
+//                Color.clear
+//                  .preference(key: TimelineOverflowSizeKey.self, value: geometry.size.width)
+//              }
+//            }
+//            .onPreferenceChange(TimelineOverflowSizeKey.self) { width in
+//              overflowWidth = width
+//            }
+//            .padding(.horizontal, viewportWidth / 2)
+//            .padding(.trailing, -(overflowWidth - (timeline.totalWidth)))
+//            .padding(.top,50)
           }
           .frame(width: timeline.totalWidth + viewportWidth)
           // Scroll clip into view on selection change.
@@ -115,26 +116,26 @@ struct TimelineContentView: View {
         .frame(height: configuration.timelineRulerHeight)
         .allowsHitTesting(false)
       }
-      .overlay(alignment: .bottomLeading) {
-        ZStack(alignment: .leading) {
+      .overlay(alignment: .center) {
+          ZStack(alignment: .bottomLeading) {
           Rectangle()
             .fill(colorScheme == .dark
               ? Color(uiColor: .systemBackground)
               : Color(uiColor: .secondarySystemBackground))
             .frame(height: configuration.backgroundTrackHeight + configuration.trackSpacing * 2)
           TrackView(track: dataSource.backgroundTrack)
-            .frame(height: configuration.backgroundTrackHeight)
+            .frame(height: 30)
             .background(alignment: .trailing) {
               BackgroundTrackAddButton()
                 .alignmentGuide(.trailing) { _ in 0 }
             }
             .padding(.horizontal, viewportWidth / 2)
         }
-        .overlay(alignment: .top) {
-          // Line above background track
-          Divider()
-            .padding(.horizontal, -viewportWidth / 2)
-        }
+//        .overlay(alignment: .top) {
+//          // Line above background track
+//          Divider()
+//            .padding(.horizontal, -viewportWidth / 2)
+//        }
       }
       // Snapping indicator lines
       .overlay(alignment: .leading) {

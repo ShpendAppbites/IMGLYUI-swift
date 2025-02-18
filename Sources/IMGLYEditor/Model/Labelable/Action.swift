@@ -8,11 +8,11 @@ import Foundation
 
   @_spi(Internal) public var description: String {
     switch self {
-    case .undo: "Undo"
-    case .redo: "Redo"
+    case .undo: ""
+    case .redo: ""
     case .previewMode: "Preview"
     case .editMode: "Edit"
-    case .export: "Export"
+    case .export: "Next"
     case .toTop: "To Top"
     case .up: "Up"
     case .down: "Down"
@@ -30,11 +30,11 @@ import Foundation
 
   @_spi(Internal) public var imageName: String? {
     switch self {
-    case .undo: "arrow.uturn.backward.circle"
-    case .redo: "arrow.uturn.forward.circle"
+    case .undo: "arrow.uturn.backward"
+    case .redo: "arrow.uturn.forward"
     case .previewMode: "eye"
     case .editMode: "eye.fill"
-    case .export: "square.and.arrow.up"
+    case .export: "chevron.forward"
     case .toTop: "square.3.stack.3d.top.fill"
     case .up: "square.2.stack.3d.top.fill"
     case .down: "square.2.stack.3d.bottom.fill"

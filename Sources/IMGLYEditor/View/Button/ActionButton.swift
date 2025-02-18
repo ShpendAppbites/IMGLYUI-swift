@@ -12,7 +12,7 @@ struct ActionButton: View {
 
   var body: some View {
     Button {
-      interactor.actionButtonTapped(for: action)
+      interactor.actionButtonTapped(for: action) 
     } label: {
       action.label
     }

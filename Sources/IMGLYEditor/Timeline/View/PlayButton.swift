@@ -12,6 +12,7 @@ struct PlayButton: View {
     } label: {
       ZStack {
         Image(systemName: player.isPlaying ? "pause.fill" : "play.fill")
+              .foregroundColor(.white)
       }
       .frame(maxWidth: .infinity, maxHeight: .infinity)
       .contentShape(Rectangle())
