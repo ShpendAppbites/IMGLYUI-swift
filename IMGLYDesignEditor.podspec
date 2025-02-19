@@ -1,5 +1,5 @@
 Pod::Spec.new do |s|
-    s.name         = 'IMGLYCore'
+    s.name         = 'IMGLYDesignEditor'
     s.version      = '1.41.1'  # Match the version you need
     s.summary      = 'IMGLYDesignEditor submodule'
     s.description  = 'Core functionality for IMGLY.'
