@@ -15,5 +15,14 @@ Pod::Spec.new do |s|
     # Adjust these paths for your code location
     s.source_files     = 'Sources/**/*.{swift,h,m}'
     s.resources        = ['Sources/**/*.xcassets', 'Sources/**/*.xib'] # if any
+
+
+    s.subspec 'Core' do |core|
+      core.source_files = 'Sources/IMGLYCore/**/*.{swift,h,m}'
+    end
+  
+    s.subspec 'CoreUI' do |coreui|
+      coreui.source_files = 'Sources/IMGLYCoreUI/**/*.{swift,h,m}'
+    end
   end
   
