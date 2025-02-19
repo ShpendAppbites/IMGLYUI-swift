@@ -22,8 +22,8 @@ Pod::Spec.new do |s|
     # Only compile code under Sources/IMGLYCore/
     s.source_files = 'Sources/IMGLYApparelEditor/**/*.{swift,h,m}'
 
-    s.dependency = 'IMGLYEditor', '1.41.1'
-    s.dependency = 'IMGLYCore', '1.41.1'
+    s.dependency  'IMGLYEditor', '1.41.1'
+    s.dependency  'IMGLYCore', '1.41.1'
 
     
     # If there are images, nibs, or other resources in this folder:
