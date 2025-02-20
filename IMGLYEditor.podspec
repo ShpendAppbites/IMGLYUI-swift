@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name              = 'IMGLYEditor'
-  s.version           = '1.45.0'
+  s.version           = '1.41.1'
   s.summary           = 'The core editor component for the various IMG.LY editors.'
   s.description       = <<-DESC
 The core editor component for the various IMG.LY editors.
@@ -34,7 +34,7 @@ DESC
   }
 
   # Dependencies
-  s.dependency        'IMGLYCamera', '1.45.0'
+  s.dependency        'IMGLYCamera', '1.41.1'
 
   # Optional Xcode build settings
   s.pod_target_xcconfig = {
