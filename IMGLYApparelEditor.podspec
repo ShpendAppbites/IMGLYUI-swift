@@ -1,34 +1,43 @@
 Pod::Spec.new do |s|
-    s.name         = 'IMGLYApparelEditor'
-    s.version      = '1.41.1'  # Match the version you need
-    s.summary      = 'IMGLYApparelEditor submodule'
-    s.description  = 'Core functionality for IMGLY.'
-    s.homepage     = 'https://github.com/ShpendAppbites/IMGLY-swift'
-    s.license      = 'MIT'
-    s.author       = { 'You' => 'you@example.com' }
-  
-    s.swift_version = '5.0'
-    s.platform     = :ios, '16.0'
-  
-    # The repo link and tag/branch
-    s.source       = {
-      :git => 'https://github.com/ShpendAppbites/IMGLYUI-swift.git',
-      :tag => '1.41.1'    # or :branch => 'main'
-    }
-  
-    # This ensures Swift sees it as `import IMGLYCore`
-    s.module_name  = 'IMGLYApparelEditor'
-  
-    # Only compile code under Sources/IMGLYCore/
-    s.source_files = 'Sources/IMGLYApparelEditor/**/*.{swift,h,m}'
+  s.name             = 'IMGLYApparelEditor'
+  s.version          = '1.41.1'
+  s.summary          = 'A mobile editor for creating a print-ready design.'
+  s.description      = <<-DESC
+A mobile editor for creating a print-ready design.
 
-    s.dependency  'IMGLYEditor', '1.41.1'
-    s.dependency  'IMGLYCore', '1.41.1'
+Changelog: https://img.ly/docs/cesdk/changelog/
+DESC
+  s.homepage         = 'https://img.ly'
+  s.license          = { :type => 'Commercial', :file => 'LICENSE.md' }
+  s.authors          = { 'IMG.LY GmbH' => 'contact@img.ly' }
 
-    
-    # If there are images, nibs, or other resources in this folder:
-    # s.resources    = 'Sources/IMGLYCore/**/*.{xcassets,xib,storyboard}'
-    
-    # If IMGLYCore has no other internal dependencies, you're done here
-  end
-  
+  s.source           = {
+    :git => 'https://github.com/ShpendAppbites/IMGLYUI-swift.git',
+    :tag => '1.41.1'
+  }
+
+  s.cocoapods_version = '>= 1.11.2'
+  s.platform         = :ios, '16.0'
+  s.swift_version    = '5.10'
+
+  # Source files
+  s.source_files = [
+    'Bundle+.swift',
+    'Sources/IMGLYApparelEditor/**/*.{swift}'
+  ]
+
+  # Resources
+  s.resources = 'Sources/IMGLYApparelEditor/Resources/*'
+
+  # Dependencies
+  s.dependency 'IMGLYEditor', '1.41.1'
+
+  # Optional Xcode build settings
+  s.pod_target_xcconfig = {
+    'SWIFT_OBJC_INTERFACE_HEADER_NAME' => '',
+    'SWIFT_INSTALL_OBJC_HEADER'        => 'NO'
+  }
+
+  # Frameworks to link
+  s.frameworks = %w[SwiftUI]
+end
