@@ -17,7 +17,7 @@ DESC
 
   s.cocoapods_version = '>= 1.11.2'
   s.platform         = :ios, '16.0'
-  s.swift_version    = '5.10'
+ s.swift_version    = '5.0'
 
   s.source_files     = [
     'Bundle+.swift',
