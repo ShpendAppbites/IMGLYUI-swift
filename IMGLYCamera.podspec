@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
   
     # The repo link and tag/branch
     s.source       = {
-      :git => 'https://github.com/ShpendAppbites/IMGLY-swift.git',
+      :git => 'https://github.com/ShpendAppbites/IMGLYUI-swift.git',
       :tag => '1.41.1'    # or :branch => 'main'
     }
   

@@ -7,13 +7,13 @@ The core editor component for the various IMG.LY editors.
 
 Changelog: https://img.ly/docs/cesdk/changelog/
 DESC
-  s.homepage          = 'https://github.com/ShpendAppbites/IMGLY-swift'
+  s.homepage          = 'https://github.com/ShpendAppbites/IMGLYUI-swift'
   s.license           = { :type => 'Commercial', :file => 'LICENSE.md' }
   s.authors           = { 'IMG.LY GmbH' => 'contact@img.ly' }
 
   # Source and version
   s.source            = {
-    :git => 'https://github.com/ShpendAppbites/IMGLY-swift',
+    :git => 'https://github.com/ShpendAppbites/IMGLYUI-swift.git',
     :tag => '1.41.1'
   }
 

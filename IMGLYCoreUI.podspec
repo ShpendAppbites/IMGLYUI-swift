@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
     s.platform     = :ios, '16.0'
   
     s.source       = {
-      :git => 'https://github.com/ShpendAppbites/IMGLY-swift.git',
+      :git => 'https://github.com/ShpendAppbites/IMGLYUI-swift.git',
       :tag => '1.41.1'
     }
   
