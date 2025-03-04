@@ -12,9 +12,9 @@ DESC
   s.authors           = { 'IMG.LY GmbH' => 'contact@img.ly' }
 
   # Source and version
-  s.source            = {
+  s.source           = {
     :git => 'https://github.com/ShpendAppbites/IMGLYUI-swift.git',
-    :tag => '1.41.1'
+    :branch => 'main'
   }
 
   # CocoaPods & Swift settings

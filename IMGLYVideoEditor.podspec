@@ -11,7 +11,7 @@ DESC
   s.authors          = { 'IMG.LY GmbH' => 'contact@img.ly' }
   s.source           = {
     :git => 'https://github.com/ShpendAppbites/IMGLYUI-swift.git',
-    :tag => '1.41.1'
+    :branch => 'main'
   }
   s.cocoapods_version = '>= 1.11.2'
   s.platform         = :ios, '16.0'
