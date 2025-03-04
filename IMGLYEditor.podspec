@@ -34,7 +34,7 @@ DESC
   }
 
   # Dependencies
-  s.dependency        'IMGLYCamera', '1.41.1'
+  s.dependency        'IMGLYCamera'
 
   # Optional Xcode build settings
   s.pod_target_xcconfig = {
