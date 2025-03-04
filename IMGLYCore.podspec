@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'IMGLYCore'
-  s.version          = '1.41.1'
+  s.version = '5.10-custom'
   s.summary          = 'The core functionality for the various IMG.LY editors.'
   s.description      = <<-DESC
 The core functionality for the various IMG.LY editors.
@@ -24,7 +24,7 @@ DESC
     'Sources/IMGLYCore/**/*.{swift}'
   ]
 
-  s.dependency 'IMGLYEngine', '1.41.1'
+  s.dependency 'IMGLYEngine', '5.10-custom'
 
   s.pod_target_xcconfig = {
     'SWIFT_OBJC_INTERFACE_HEADER_NAME' => '',

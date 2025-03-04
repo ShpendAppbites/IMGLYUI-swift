@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'IMGLYCamera'
-  s.version          = '1.41.1'
+  s.version = '5.10-custom'
   s.summary          = 'A mobile camera with versatile video capturing capabilities.'
   s.description      = <<-DESC
 A mobile camera with versatile video capturing capabilities.
@@ -28,7 +28,7 @@ DESC
     'IMGLYCameraAssets' => ['Sources/IMGLYCamera/Assets.xcassets']
   }
 
-  s.dependency 'IMGLYCoreUI', '1.41.1'
+  s.dependency 'IMGLYCoreUI', '5.10-custom'
 
   s.pod_target_xcconfig = {
     'SWIFT_OBJC_INTERFACE_HEADER_NAME' => '',

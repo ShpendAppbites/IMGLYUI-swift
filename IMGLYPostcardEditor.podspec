@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'IMGLYPostcardEditor'
-  s.version          = '1.41.1'
+  s.version = '5.10-custom'
   s.summary          = 'A mobile editor to facilitate optimal post- & greeting- card design.'
   s.description      = <<-DESC
 A mobile editor to facilitate optimal post- & greeting- card design.
@@ -26,7 +26,7 @@ DESC
 
   s.resources        = 'Sources/IMGLYPostcardEditor/Resources/*'
 
-  s.dependency 'IMGLYEditor', '1.41.1'
+  s.dependency 'IMGLYEditor', '5.10-custom'
 
   s.pod_target_xcconfig = {
     'SWIFT_OBJC_INTERFACE_HEADER_NAME' => '',

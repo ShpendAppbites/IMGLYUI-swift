@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'IMGLYCoreUI'
-  s.version          = '1.41.1'
+  s.version = '5.10-custom'
   s.summary          = 'The core UI components for the various IMG.LY editors.'
   s.description      = <<-DESC
 The core UI components for the various IMG.LY editors.
@@ -32,7 +32,7 @@ DESC
   }
 
   # Dependencies
-  s.dependency 'IMGLYCore',           '1.41.1'
+  s.dependency 'IMGLYCore', '5.10-custom'
   s.dependency 'Kingfisher',         '~> 7.10.0'
   s.dependency 'SwiftUIIntrospect',  '~> 1.1.2'
 

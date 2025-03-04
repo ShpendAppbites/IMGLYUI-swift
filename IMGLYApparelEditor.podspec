@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'IMGLYApparelEditor'
-  s.version          = '1.41.1'
+  s.version = '5.10-custom'
   s.summary          = 'A mobile editor for creating a print-ready design.'
   s.description      = <<-DESC
 A mobile editor for creating a print-ready design.
@@ -30,7 +30,7 @@ DESC
   s.resources = 'Sources/IMGLYApparelEditor/Resources/*'
 
   # Dependencies
-  s.dependency 'IMGLYEditor', '1.41.1'
+  s.dependency 'IMGLYEditor', '5.10-custom'
 
   # Optional Xcode build settings
   s.pod_target_xcconfig = {

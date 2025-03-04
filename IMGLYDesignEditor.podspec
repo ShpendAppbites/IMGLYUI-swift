@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'IMGLYDesignEditor'
-  s.version          = '1.41.1'
+  s.version = '5.10-custom'
   s.summary          = 'A mobile editor with versatile editing capabilities for a broad range of design applications.'
   s.description      = <<-DESC
 A mobile editor with versatile editing capabilities for a broad range of design applications.
@@ -26,7 +26,7 @@ DESC
 
   s.resources        = 'Sources/IMGLYDesignEditor/Resources/*'
 
-  s.dependency 'IMGLYEditor', '1.41.1'
+  s.dependency 'IMGLYEditor', '5.10-custom'
 
   s.pod_target_xcconfig = {
     'SWIFT_OBJC_INTERFACE_HEADER_NAME' => '',
