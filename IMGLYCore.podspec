@@ -24,7 +24,7 @@ DESC
     'Sources/IMGLYCore/**/*.{swift}'
   ]
 
-  s.dependency 'IMGLYEngine', '5.10-custom'
+  s.dependency 'IMGLYEngine'
 
   s.pod_target_xcconfig = {
     'SWIFT_OBJC_INTERFACE_HEADER_NAME' => '',
