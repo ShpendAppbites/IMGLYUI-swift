@@ -13,7 +13,7 @@ struct SelectionColorsSheet: View {
   }
 
   var body: some View {
-    DismissableTitledSheet("Template Colors") {
+    DismissableBottomSheet {
       List {
         let sections = interactor.bind(selectionColors, completion: nil)
         ForEach(sections, id: \.name) { section in
@@ -42,6 +42,6 @@ struct SelectionColorsSheet: View {
 
 struct SelectionColorsSheet_Previews: PreviewProvider {
   static var previews: some View {
-    defaultPreviews(sheet: .init(.selectionColors))
+    defaultPreviews(sheet: .init(.selectionColors, .selectionColors))
   }
 }

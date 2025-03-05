@@ -6,40 +6,26 @@ struct Sheet: View {
   private var sheet: SheetState { interactor.sheet }
 
   @Environment(\.verticalSizeClass) private var verticalSizeClass
-
-  @ViewBuilder func sheet(_ mode: SheetMode) -> some View {
-    switch mode {
-    case .selectionColors: SelectionColorsSheet()
-    case .font: FontSheet()
-    case .fontSize: FontSizeSheet()
-    case .color: ColorSheet()
-    default: EmptyView()
-    }
-  }
+  @Environment(\.imglyAssetLibrary) private var anyAssetLibrary
 
   // swiftlint:disable:next cyclomatic_complexity
   @ViewBuilder func sheet(_ type: SheetType) -> some View {
     switch type {
-    case let sheet as SheetTypes.Custom:
-      AnyView(erasing: sheet.content())
-    case let sheet as SheetTypes.LibraryAdd:
-      AnyView(erasing: sheet.content())
-    case let sheet as SheetTypes.LibraryReplace:
-      AnyView(erasing: sheet.content())
-        .imgly.assetLibrary(titleDisplayMode: .inline)
-    case is SheetTypes.Voiceover: VoiceoverSheet()
-    case is SheetTypes.Reorder: ReorderOptionsSheet()
-    case is SheetTypes.Adjustments: AdjustmentsOptionsSheet()
-    case is SheetTypes.Filter: FilterOptionsSheet()
-    case is SheetTypes.Effect: EffectOptionsSheet()
-    case is SheetTypes.Blur: BlurOptionsSheet()
-    case is SheetTypes.Crop: CropOptionsSheet()
-    case is SheetTypes.Layer: LayerOptionsSheet()
-    case is SheetTypes.FormatText: FormatTextOptionsSheet()
-    case is SheetTypes.Shape: ShapeOptionsSheet()
-    case is SheetTypes.FillStroke: FillStrokeOptionsSheet()
-    case is SheetTypes.Volume: VolumeOptionsSheet()
-    default: EmptyView()
+    case .image: ImageSheet()
+    case .text: TextSheet()
+    case .shape: ShapeSheet()
+    case .sticker: StickerSheet()
+    case .group: GroupSheet()
+    case .selectionColors: SelectionColorsSheet()
+    case .font: FontSheet()
+    case .fontSize: FontSizeSheet()
+    case .color: ColorSheet()
+    case .page: PageSheet()
+    case .video: VideoSheet()
+    case .audio: AudioSheet()
+    case .voiceover: VoiceOverSheet()
+    case .reorder: ReorderSheet()
+    case .asset, .elements, .clip, .overlay, .stickerOrShape, .pageOverview: EmptyView()
     }
   }
 
@@ -55,22 +41,48 @@ struct Sheet: View {
     return .visible
   }
 
+  var assetLibrary: some AssetLibrary {
+    anyAssetLibrary ?? AnyAssetLibrary(erasing: DefaultAssetLibrary())
+  }
+
   var body: some View {
     Group {
-      if let type = sheet.type {
-        if let type = type as? SheetTypeForDesignBlock {
-          sheet(type).imgly.selection(type.id)
-        } else {
-          sheet(type)
+      switch sheet.mode {
+      case .add:
+        switch sheet.type {
+        case .asset: assetLibrary
+        case .elements: assetLibrary.elementsTab
+        case .image: assetLibrary.imagesTab
+        case .text: assetLibrary.textTab
+        case .shape: assetLibrary.shapesTab
+        case .sticker: assetLibrary.stickersTab
+        case .clip: assetLibrary.clipsTab
+        case .overlay: assetLibrary.overlaysTab
+        case .stickerOrShape: assetLibrary.stickersAndShapesTab
+        case .audio: assetLibrary.audioTab
+        default: EmptyView()
         }
-      } else if let mode = sheet.mode {
-        if let id = mode.pinnedBlockID {
-          sheet(mode)
+
+      case .replace:
+        Group {
+          switch sheet.type {
+          case .video: assetLibrary.videosTab
+          case .audio: assetLibrary.audioTab
+          case .image: assetLibrary.imagesTab
+          case .sticker: assetLibrary.stickersTab
+          default: EmptyView()
+          }
+        }
+        .imgly.assetLibrary(titleDisplayMode: .inline)
+
+      default:
+        if let id = sheet.mode.pinnedBlockID {
+          sheet(sheet.type)
             .imgly.selection(id)
-            .imgly.colorPalette(mode.colorPalette)
-            .imgly.fontFamilies(mode.fontFamilies)
+            .imgly.colorPalette(sheet.mode.colorPalette)
+            .imgly.fontFamilies(sheet.mode.fontFamilies)
         } else {
-          sheet(mode)
+          sheet(sheet.type)
         }
       }
     }
@@ -84,16 +96,14 @@ struct Sheet: View {
       hidePresentationDragIndicator = newValue
     }
     .pickerStyle(.menu)
-    .imgly.presentationConfiguration(sheet.style.largestUndimmedDetent)
-    .presentationDetents(sheet.style.detents, selection: $interactor.sheet.style.detent)
+    .imgly.presentationConfiguration(sheet.largestUndimmedDetent)
+    .presentationDetents(sheet.detents, selection: $interactor.sheet.detent)
     .presentationDragIndicator(dragIndicatorVisibility)
   }
 }
 
 struct Sheet_Previews: PreviewProvider {
   static var previews: some View {
-    defaultPreviews(sheet: .init(.libraryAdd {
-      AssetLibrarySheet(content: .image)
-    }, .image))
+    defaultPreviews(sheet: .init(.add, .image))
   }
 }

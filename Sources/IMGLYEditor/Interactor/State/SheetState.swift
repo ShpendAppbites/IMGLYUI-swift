@@ -1,58 +1,45 @@
 import SwiftUI
 
-private extension SheetType {
-  var objectIdentifier: ObjectIdentifier { .init(Self.self) }
-}
-
-struct EquatableSheetType: Equatable {
-  let value: SheetType
-
-  static func == (lhs: Self, rhs: Self) -> Bool {
-    lhs.value.objectIdentifier == rhs.value.objectIdentifier
-  }
-}
-
-struct SheetState: BatchMutable, Equatable {
+struct SheetState: BatchMutable {
   var isPresented: Bool
-  var mode: SheetMode?
-  var content: SheetContent?
-  var style: SheetStyle
-
-  private let equatableType: EquatableSheetType?
-  var type: SheetType? { equatableType?.value }
-
-  var isFloating: Bool {
-    style.isFloating
+  var model: SheetModel
+  var detent: PresentationDetent = .adaptiveMedium
+  var detents: Set<PresentationDetent> = [.adaptiveMedium, .adaptiveLarge]
+  var largestUndimmedDetent: PresentationDetent? {
+    if detents.contains(.medium) {
+      .medium
+    } else if detents.contains(.adaptiveMedium) {
+      .adaptiveMedium
+    } else if detents.contains(.adaptiveSmall) {
+      .adaptiveSmall
+    } else if detents.contains(.adaptiveTiny) {
+      .adaptiveTiny
+    } else {
+      nil
+    }
   }
 
-  var isReplacing: Bool {
-    type is SheetTypes.LibraryReplace
+  /// Forwarded `model.mode`.
+  var mode: SheetMode {
+    get { model.mode }
+    set { model.mode = newValue }
   }
+
+  /// Forwarded `model.type`.
+  var type: SheetType { model.type }
+
+  /// Combined `model` and `isPresented`.
+  var state: SheetModel? { isPresented ? model : nil }
 
   /// Hide sheet.
   init() {
     isPresented = false
-    mode = nil
-    content = nil
-    style = .default()
-    equatableType = nil
+    model = .init(.add, .image)
   }
 
-  /// Show sheet with `mode` and `style`.
-  init(_ mode: SheetMode, style: SheetStyle = .default()) {
+  /// Show sheet with `mode` and `type`.
+  init(_ mode: SheetMode, _ type: SheetType) {
     isPresented = true
-    self.mode = mode
-    content = nil
-    self.style = style
-    equatableType = nil
-  }
-
-  /// Show sheet with `type` and optional `content`.
-  init(_ type: SheetType, _ content: SheetContent? = nil) {
-    isPresented = true
-    mode = nil
-    self.content = content
-    style = type.style
-    equatableType = .init(value: type)
+    model = .init(mode, type)
   }
 }

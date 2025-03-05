@@ -949,8 +949,7 @@ extension Interactor: TimelineInteractor {
   }
 
   func clampPlayheadPositionToSelectedClip() {
-    guard sceneMode == .video,
-          let engine,
+    guard let engine,
           let pageID = timelineProperties.currentPage,
           let totalDuration = timelineProperties.timeline?.totalDuration,
           let clip = timelineProperties.selectedClip else { return }
@@ -993,15 +992,7 @@ extension Interactor: TimelineInteractor {
   // MARK: - Adding Assets
 
   func addAssetToBackgroundTrack() {
-    do {
-      try engine?.block.deselectAll()
-      let content = SheetContent.clip
-      sheet = .init(.libraryAdd {
-        AssetLibrarySheet(content: content)
-      }, content)
-    } catch {
-      handleError(error)
-    }
+    bottomBarButtonTapped(for: .addClip)
   }
 
   func addAudioAsset() {
@@ -1011,21 +1002,25 @@ extension Interactor: TimelineInteractor {
         try engine?.block.deselectAll()
         // Ensure that the deselect event comes before opening the sheet, otherwise the sheet closes immediately.
         try await Task.sleep(for: .milliseconds(100))
-        let content = SheetContent.audio
-        sheet = .init(.libraryReplace(style: .only(detent: .imgly.medium), content: {
-          AssetLibrarySheet(content: content)
-        }), content)
+        sheet.commit { model in
+          model = .init(.replace, .audio)
+          model.detents = [.adaptiveMedium]
+        }
       } catch {
         handleError(error)
       }
     }
   }
 
-  private func showVoiceOverSheet(style: SheetStyle) {
-    sheet = .init(.voiceover(style: style), .voiceover)
+  private func showVoiceOverSheet() {
+    sheet.commit { model in
+      model = .init(.addVoiceOver, .voiceover)
+      model.detent = .adaptiveMedium
+      model.detents = [.adaptiveMedium]
+    }
   }
 
-  func openVoiceOver(style: SheetStyle) {
+  func openVoiceOver() {
     guard let duration = timelineProperties.timeline?.totalDuration.seconds, duration > 0 else {
       error = .init("Unable to Record Voiceover",
                     message: "Please add content to your timeline to start recording audio.",
@@ -1041,22 +1036,21 @@ extension Interactor: TimelineInteractor {
                     confirmTitle: "Edit",
                     confirmCallback: { [weak self] in
                       self?.error.isPresented = false
-                      self?.editVoiceOver(style: style)
+                      self?.editVoiceOver()
                     })
       return
     }
 
     pause()
-    showVoiceOverSheet(style: style)
+    showVoiceOverSheet()
   }
 
-  func editVoiceOver(style: SheetStyle) {
-    showVoiceOverSheet(style: style)
+  func editVoiceOver() {
+    showVoiceOverSheet()
   }
 
-  func openCamera(_ assetSourceIDs: [MediaType: String]) {
+  func openCamera() {
     pause()
-    uploadAssetSourceIDs = assetSourceIDs
     isCameraSheetShown = true
   }
 
@@ -1133,18 +1127,14 @@ extension Interactor: TimelineInteractor {
 
   // MARK: - Photo Roll
 
-  func openSystemCamera(_ assetSourceIDs: [MediaType: String]) {
-    pause()
-    uploadAssetSourceIDs = assetSourceIDs
+  func openSystemCamera() {
     isSystemCameraShown = true
-    sheet.content = .clip // Set to clip to add to background track
+    sheet.model.type = .clip // Set to clip to add to background track
   }
 
-  func openImagePicker(_ assetSourceIDs: [MediaType: String]) {
-    pause()
-    uploadAssetSourceIDs = assetSourceIDs
+  func openImagePicker() {
     isImagePickerShown = true
-    sheet.content = .clip // Set to clip to add to background track
+    sheet.model.type = .clip // Set to clip to add to background track
   }
 
   func addAssetFromImagePicker(url: URL, mediaType: MediaType) {

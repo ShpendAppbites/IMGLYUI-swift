@@ -33,14 +33,16 @@ struct SelectableAssetItem<Content: View>: View {
     .onTapGesture {
       let propertyState = AssetProperties(title: localizedTitle, backTitle: "Back", properties: properties)
       sheetState = .properties(propertyState)
-      var detent = PresentationDetent.imgly.tiny
+      var detent = PresentationDetent.adaptiveTiny
       var detents: Set<PresentationDetent> = [detent]
       if properties.count > 1 {
-        detent = .imgly.medium
-        detents.insert(.imgly.medium)
+        detent = .adaptiveMedium
+        detents.insert(.adaptiveMedium)
       }
       interactor.sheet.commit { model in
-        model.style = .default(detent: detent, detents: detents)
+        model = .init(model.mode, model.type)
+        model.detents = detents
+        model.detent = detent
       }
     }
   }

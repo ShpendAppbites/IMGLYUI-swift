@@ -10,6 +10,9 @@ import SwiftUI
   /// By default, the `DesignEditor` will export PDFs.
   /// If this flag is set, it will export PNGs instead.
   case exportPNGInDesignEditor
+  /// By default, the engine works in an 8-bit sRGB color space and exports 8bit images which lose P3 color information.
+  /// If this flag is enabled, the engine works in 16-bit extended sRGB and exports 16bit images in the P3 color space.
+  case exportP3Images
 
   fileprivate var isInitiallyEnabled: Bool {
     switch self {
@@ -24,7 +27,7 @@ import SwiftUI
   }
 }
 
-/// Access all ``FeatureFlag``s.
+/// Access all `FeatureFlag`s.
 @propertyWrapper
 @_spi(Internal) public struct Features: DynamicProperty {
   @ObservedObject private var featureFlags = FeatureFlags.shared
@@ -36,7 +39,7 @@ import SwiftUI
   }
 }
 
-/// Access a specific ``FeatureFlag``.
+/// Access a specific `FeatureFlag`.
 @propertyWrapper
 @_spi(Internal) public struct Feature: DynamicProperty {
   @Features private var features
@@ -51,7 +54,7 @@ import SwiftUI
   }
 }
 
-/// State storage for ``FeatureFlag``s.
+/// State storage for `FeatureFlag`s.
 @_spi(Internal) public class FeatureFlags: ObservableObject {
   @Published private var enabled: Set<FeatureFlag>
 
@@ -76,7 +79,7 @@ import SwiftUI
   @MainActor fileprivate static let shared = FeatureFlags()
 
   /// Check if a feature flag is enabled. **Don't use this in SwiftUI `View`s!**
-  /// - Attention: For SwiftUI `View`s use `@Features` or `@Feature(_:)` to access ``FeatureFlag``s instead which will
+  /// - Attention: For SwiftUI `View`s use `@Features` or `@Feature(_:)` to access `FeatureFlag`s instead which will
   /// update the view if they change.
   @MainActor @_spi(Internal) public static func isEnabled(_ flag: FeatureFlag) -> Bool {
     shared.isEnabled(flag)

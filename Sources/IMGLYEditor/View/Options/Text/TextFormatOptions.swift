@@ -11,7 +11,7 @@ struct TextFormatOptions: View {
 
   var body: some View {
     List {
-      if interactor.sheetContent(id) == .text {
+      if interactor.sheetType(id) == .text {
         fontSelection
         fontWeightSelection
         fontSizeSelection

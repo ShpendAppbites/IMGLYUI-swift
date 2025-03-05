@@ -7,7 +7,6 @@ public struct VideoEditor: View {
   public static let defaultScene = Bundle.module.url(forResource: "video-empty", withExtension: "scene")!
 
   @Environment(\.imglyOnCreate) private var onCreate
-  @Environment(\.imglyDockItems) private var dockItems
   private let settings: EngineSettings
 
   /// Creates a video editor with settings.
@@ -35,20 +34,6 @@ public struct VideoEditor: View {
           return
         }
         try await onCreate(engine)
-      }
-      .imgly.dockItems { context in
-        if let dockItems {
-          try dockItems(context)
-        } else {
-          Dock.Buttons.photoRoll()
-          Dock.Buttons.imglyCamera()
-          Dock.Buttons.overlaysLibrary()
-          Dock.Buttons.textLibrary()
-          Dock.Buttons.stickersAndShapesLibrary()
-          Dock.Buttons.audioLibrary()
-          Dock.Buttons.voiceover()
-          Dock.Buttons.reorder()
-        }
       }
   }
 }

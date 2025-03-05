@@ -2,7 +2,7 @@ import SwiftUI
 @_spi(Internal) import IMGLYCoreUI
 
 struct BottomBar: View {
-  let content: SheetContent?
+  let type: SheetType?
   let id: Interactor.BlockID?
   let height: CGFloat
   let bottomSafeAreaInset: CGFloat
@@ -13,9 +13,9 @@ struct BottomBar: View {
 
   private let leadingPadding: CGFloat = 60
 
-  private var isCloseButtonEnabled: Bool { content != .pageOverview }
+  private var isCloseButtonEnabled: Bool { type != .pageOverview }
 
-  private var isRoot: Bool { content == nil }
+  private var isRoot: Bool { type == nil }
 
   @ViewBuilder func button(_ mode: SheetMode) -> some View {
     Button {
@@ -30,13 +30,13 @@ struct BottomBar: View {
   func isButtonEnabled(_ mode: SheetMode) -> Bool {
     switch mode {
     case .moveUp:
-      if content == .pageOverview {
+      if type == .pageOverview {
         interactor.canBringBackward(interactor.pageOverview.currentPage)
       } else {
         interactor.canBringForward(id)
       }
     case .moveDown:
-      if content == .pageOverview {
+      if type == .pageOverview {
         interactor.canBringForward(interactor.pageOverview.currentPage)
       } else {
         interactor.canBringBackward(id)
@@ -46,39 +46,78 @@ struct BottomBar: View {
     }
   }
 
-  func modes(for content: SheetContent?) -> [SheetMode] {
-    guard content == .pageOverview else {
+  // swiftlint:disable:next cyclomatic_complexity
+  func modes(for type: SheetType?) -> [SheetMode] {
+    guard let type else {
       return []
     }
 
-    var modes: [SheetMode] = [.editPage, .addPage, .moveUp, .moveDown, .duplicate]
-    if interactor.pageCount > 1 {
+    let isVideo = interactor.sceneMode == .video
+
+    var modes = [SheetMode]()
+
+    if type == .pageOverview {
+      modes += [.editPage, .addPage, .moveUp, .moveDown, .duplicate]
+      if interactor.pageCount > 1 {
+        modes += [.delete]
+      }
+      return modes.filter { interactor.isAllowed(interactor.pageOverview.currentPage, $0) }
+    }
+
+    if Set([.image, .video]).contains(type) {
+      modes += [.adjustments(), .filter(), .effect(), .blur()]
+    }
+    if type == .voiceover {
+      modes += [.editVoiceOver]
+    }
+    if type == .text {
+      modes += [.edit, .format]
+    }
+    if Set([.text, .shape, .page]).contains(type) {
+      modes += [.fillAndStroke]
+    }
+    if isVideo, Set([.audio, .video, .voiceover]).contains(type) {
+      modes += [.volume]
+    }
+    if Set([.image, .video]).contains(type) {
+      modes += [.crop(), .shape]
+    }
+    if type == .shape, Set([.line, .star, .polygon, .rect]).contains(interactor.shapeType(id)) {
+      modes += [.shape]
+    }
+    if !Set([.page, .voiceover]).contains(type) {
+      modes += [.duplicate]
+    }
+    if !Set([.page, .audio, .voiceover]).contains(type) {
+      modes += [.layer]
+    }
+    if isVideo, Set([.text, .image, .shape, .sticker, .video, .audio]).contains(type) {
+      modes += [.split]
+    }
+    if Set([.image, .video]).contains(type) {
+      modes += [.fillAndStroke]
+    }
+    if isVideo, !Set([.page, .audio, .voiceover]).contains(type) {
+      modes += [.attachToBackground, .detachFromBackground]
+    }
+    if isVideo, Set([.audio, .video]).contains(type) {
+      modes += [.replace]
+    }
+    if Set([.image, .sticker]).contains(type) {
+      modes += [.replace]
+    }
+    if isVideo, !Set([.page, .audio]).contains(type) {
+      modes += [.reorder]
+    }
+    if type == .group {
+      modes += [.enterGroup]
+    }
+    modes += [.selectGroup]
+    if type != .page {
       modes += [.delete]
     }
-    return modes.filter { interactor.isAllowed(interactor.pageOverview.currentPage, $0) }
-  }
 
-  @Environment(\.imglyInspectorBarItems) private var inspectorBarItems
-  @Environment(\.imglyAssetLibrary) private var anyAssetLibrary
-
-  private var assetLibrary: some AssetLibrary {
-    anyAssetLibrary ?? AnyAssetLibrary(erasing: DefaultAssetLibrary())
-  }
-
-  private var inspectorBarContext: InspectorBar.Context? {
-    guard let engine = interactor.engine, let id, engine.block.isValid(id) else {
-      return nil
-    }
-    do {
-      return try .init(engine: engine, eventHandler: interactor, assetLibrary: assetLibrary,
-                       selection: .init(block: id, engine: engine))
-    } catch {
-      let error = EditorError(
-        "Could not create InspectorBar.Context.\nReason:\n\(error.localizedDescription)"
-      )
-      interactor.handleErrorWithTask(error)
-      return nil
-    }
+    return modes.filter { interactor.isAllowed(id, $0) }
   }
 
   @State var bottomBarWidth: CGFloat?
@@ -86,15 +125,8 @@ struct BottomBar: View {
   @ViewBuilder var barItems: some View {
     ScrollView(.horizontal, showsIndicators: false) {
       HStack(spacing: 0) {
-        Group {
-          if content != .pageOverview, let inspectorBarItems, let inspectorBarContext {
-            InspectorBarView(items: inspectorBarItems, context: inspectorBarContext)
-              .symbolRenderingMode(.monochrome)
-          } else {
-            ForEach(modes(for: content)) {
-              button($0)
-            }
-          }
+        ForEach(modes(for: type)) {
+          button($0)
         }
         .fixedSize()
         Spacer()
@@ -150,12 +182,12 @@ struct BottomBar: View {
     .onPreferenceChange(BottomBarWidthKey.self) { newValue in
       bottomBarWidth = newValue
     }
-    .animation(nil, value: content)
+    .animation(nil, value: type)
   }
 
   @ViewBuilder var bottomBar: some View {
     ZStack {
-      BottomToolbar {
+      BottomToolbar(title: Text(type?.localizedStringKey ?? "")) {
         ZStack {
           Rectangle()
             .fill(colorScheme == .dark

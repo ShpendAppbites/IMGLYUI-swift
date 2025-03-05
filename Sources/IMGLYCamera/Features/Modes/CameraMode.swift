@@ -68,17 +68,19 @@ public enum CameraMode: Equatable, Sendable {
   /// When recording for the main recording is the second rect.
   /// This is used in the CaptureService to get the video to the right position.
   var firstRecordingRect: CGRect {
-    switch self {
-    case .reaction: rect2 ?? .zero
+    switch (self, layoutMode) {
+    case (.reaction, .vertical): arePositionsSwapped ? rect1 : (rect2 ?? .zero)
+    case (.reaction, .horizontal): !arePositionsSwapped ? (rect2 ?? .zero) : rect1
     default: rect1
     }
   }
 
   func reactionVideo(duration: CMTime) -> Recording? {
-    guard case let .reaction(_, url, _) = self else {
+    guard case let .reaction(_, url, arePositionsSwapped) = self else {
       return nil
     }
-    return Recording(videos: [.init(url: url, rect: rect1)], duration: duration)
+    let frame = arePositionsSwapped ? (rect2 ?? .zero) : rect1
+    return Recording(videos: [.init(url: url, rect: frame)], duration: duration)
   }
 }
 

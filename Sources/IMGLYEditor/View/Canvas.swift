@@ -53,9 +53,9 @@ struct Canvas: View {
       var height = bottomBarHeight + pageNavigationHeight
       if interactor.sceneMode == .video {
         if isTimelineMinimized || (interactor.sheet.isPresented
-          && !interactor.sheet.isFloating
-          && interactor.sheet.content != .voiceover
-          && !interactor.sheet.isReplacing) {
+          && interactor.sheet.mode != .add
+          && interactor.sheet.mode != .addVoiceOver
+          && interactor.sheet.mode != .replace) {
           height += timelinePlayerBarHeight
         } else {
           height += dynamicTimelineHeight
@@ -79,8 +79,8 @@ struct Canvas: View {
   @State private var isTimelineMinimized = false
   @State private var isTimelineAnimating = false
 
-  @ViewBuilder func bottomBar(content: SheetContent?) -> some View {
-    BottomBar(content: content, id: id, height: bottomBarHeight, bottomSafeAreaInset: bottomSafeAreaInset)
+  @ViewBuilder func bottomBar(type: SheetType?) -> some View {
+    BottomBar(type: type, id: id, height: bottomBarHeight, bottomSafeAreaInset: bottomSafeAreaInset)
   }
 
   @ViewBuilder var canvas: some View {
@@ -169,7 +169,8 @@ struct Canvas: View {
             playerBar()
               .frame(height: timelinePlayerBarHeight)
             if !isTimelineMinimized,
-               !interactor.sheet.isPresented || interactor.sheet.isFloating || interactor.sheet.isReplacing {
+               // Maybe the sheet mode should know whether it wants to adjust the canvas.
+               !interactor.sheet.isPresented || interactor.sheet.mode == .add || interactor.sheet.mode == .replace {
               timeline()
                 .transition(.move(edge: .bottom).combined(with: .opacity))
             }
@@ -181,8 +182,8 @@ struct Canvas: View {
                 : Color(uiColor: .secondarySystemBackground))
           }
           .frame(maxHeight: isTimelineMinimized || (interactor.sheet.isPresented
-              && !interactor.sheet.isFloating
-              && !interactor.sheet.isReplacing)
+              && interactor.sheet.mode != .add
+              && interactor.sheet.mode != .replace)
             ? timelinePlayerBarHeight
             : dynamicTimelineHeight)
           .animation(.imgly.timelineMinimizeMaximize, value: interactor.sheet.isPresented)
@@ -205,19 +206,19 @@ struct Canvas: View {
         Spacer()
         if !interactor.isLoading, interactor.isEditing {
           ZStack {
-            bottomBar(content: nil)
+            bottomBar(type: nil)
               .disabled(interactor.sheet.isPresented)
               .onPreferenceChange(BottomBarContentGeometryKey.self) { newValue in
                 barContentGeometry = newValue
               }
             Group {
-              if let content = interactor.sheetContentForBottomBar {
-                bottomBar(content: content)
+              if let type = interactor.sheetTypeForBottomBar {
+                bottomBar(type: type)
                   .zIndex(1)
                   .transition(.move(edge: .bottom))
               }
             }
-            .animation(.easeInOut(duration: 0.2), value: interactor.sheetContentForBottomBar)
+            .animation(.easeInOut(duration: 0.2), value: interactor.sheetTypeForBottomBar)
           }
           .transition(.move(edge: .bottom))
         }
@@ -279,10 +280,7 @@ struct Canvas: View {
   }
 
   private var media: [MediaType] {
-    let media: [MediaType] = interactor.sceneMode == .video ? [.image, .movie] : [.image]
-    return media.filter {
-      interactor.uploadAssetSourceIDs[$0] != nil
-    }
+    interactor.sceneMode == .video ? [.image, .movie] : [.image]
   }
 
   private var mediaCompletion: MediaCompletion {

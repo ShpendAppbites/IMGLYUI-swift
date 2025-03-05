@@ -19,8 +19,6 @@ struct AdjustmentsOptions: View {
 
 struct AdjustmentsOptions_Previews: PreviewProvider {
   static var previews: some View {
-    defaultPreviews(sheet: .init(.libraryAdd {
-      AssetLibrarySheet(content: .image)
-    }, .image))
+    defaultPreviews(sheet: .init(.add, .image))
   }
 }

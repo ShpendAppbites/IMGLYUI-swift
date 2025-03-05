@@ -27,7 +27,23 @@ final class VideoInteractorBehavior: InteractorBehavior {
     try await context.interactor.config.callbacks.onCreate(context.engine)
   }
 
-  func rootBottomBarItems(_: InteractorContext) throws -> [RootBottomBarItem] { [] }
+  func rootBottomBarItems(_ context: InteractorContext) throws -> [RootBottomBarItem] {
+    var items: [RootBottomBarItem] = [
+      .addFromPhotoRoll,
+      .addFromCamera(systemCamera: false),
+      .addOverlay,
+      .addText,
+      .addStickerOrShape,
+      .addAudio,
+      .addVoiceOver,
+    ]
+
+    if context.interactor.backgroundTracksItemCount > 1 {
+      items.append(.reorder)
+    }
+
+    return items
+  }
 
   func updateState(_: InteractorContext) throws {}
 }

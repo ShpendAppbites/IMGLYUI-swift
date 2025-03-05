@@ -1,6 +1,7 @@
 import SwiftUI
 
-/// A result builder for building hierarchical asset library content similar to `ViewBuilder`.
+/// A custom parameter attribute that constructs hierarchical asset library content from closures similar to
+/// `ViewBuilder`.
 @MainActor
 @resultBuilder
 public enum AssetLibraryBuilder {

@@ -1,6 +1,6 @@
 import Foundation
 
-struct AlertState: BatchMutable, Equatable {
+struct AlertState: BatchMutable {
   var isPresented: Bool
   var details: Details?
 

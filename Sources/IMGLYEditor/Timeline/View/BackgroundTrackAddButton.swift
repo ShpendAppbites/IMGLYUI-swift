@@ -8,7 +8,7 @@ struct BackgroundTrackAddButton: View {
   var body: some View {
     Menu {
       Button {
-        interactor.openCamera(EditorEvents.AddFrom.defaultAssetSourceIDs)
+        interactor.openCamera()
       } label: {
         Label {
           Text("Camera")
@@ -17,7 +17,7 @@ struct BackgroundTrackAddButton: View {
         }
       }
       Button {
-        interactor.openImagePicker(EditorEvents.AddFrom.defaultAssetSourceIDs)
+        interactor.openImagePicker()
       } label: {
         Label {
           Text("Photo Roll")

@@ -9,7 +9,6 @@ public struct DesignEditor: View {
 
   @Environment(\.imglyOnCreate) private var onCreate
   @Environment(\.imglyOnExport) private var onExport
-  @Environment(\.imglyDockItems) private var dockItems
   private let settings: EngineSettings
 
   /// Creates a design editor with settings.
@@ -48,19 +47,6 @@ public struct DesignEditor: View {
           return
         }
         try await onExport(engine, eventHandler)
-      }
-      .imgly.dockItems { context in
-        if let dockItems {
-          try dockItems(context)
-        } else {
-          Dock.Buttons.elementsLibrary()
-          Dock.Buttons.photoRoll()
-          Dock.Buttons.systemCamera()
-          Dock.Buttons.imagesLibrary()
-          Dock.Buttons.textLibrary()
-          Dock.Buttons.shapesLibrary()
-          Dock.Buttons.stickersLibrary()
-        }
       }
   }
 }

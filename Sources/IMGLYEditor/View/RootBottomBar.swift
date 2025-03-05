@@ -12,11 +12,9 @@ struct RootBottomBar: View {
 
   @ViewBuilder var fab: some View {
     Button {
-      interactor.send(.openSheet(type: .libraryAdd {
-        AssetLibrarySheet(content: nil)
-      }))
+      interactor.bottomBarButtonTapped(for: .add)
     } label: {
-      Label("Add", systemImage: "plus")
+      SheetMode.add.label
         .font(.title2)
         .fontWeight(.bold)
         .labelStyle(.iconOnly)
@@ -32,21 +30,18 @@ struct RootBottomBar: View {
   }
 
   @ViewBuilder func button(_ item: RootBottomBarItem) -> some View {
-    if let mode = item.sheetMode {
-      Button {
-        interactor.bottomBarButtonTapped(for: mode)
-      } label: {
-        mode.label(mode.pinnedBlockID, interactor)
-      }
-      .labelStyle(.bottomBar(alignment: mode == .selectionColors ? .leading : .center))
-      .imgly.selection(mode.pinnedBlockID)
-    } else {
-      EmptyView()
+    let mode = item.sheetMode
+    Button {
+      interactor.bottomBarButtonTapped(for: mode)
+    } label: {
+      mode.label(mode.pinnedBlockID, interactor)
     }
+    .labelStyle(.bottomBar(alignment: mode == .selectionColors ? .leading : .center))
+    .imgly.selection(mode.pinnedBlockID)
   }
 
   var showFAB: Bool {
-    dockItems == nil && interactor.rootBottomBarItems.contains { $0 == .fab }
+    interactor.rootBottomBarItems.contains { $0 == .fab }
   }
 
   var items: [RootBottomBarItem] {
@@ -59,20 +54,6 @@ struct RootBottomBar: View {
     }
   }
 
-  @Environment(\.imglyDockItems) private var dockItems
-  @Environment(\.imglyAssetLibrary) private var anyAssetLibrary
-
-  private var assetLibrary: some AssetLibrary {
-    anyAssetLibrary ?? AnyAssetLibrary(erasing: DefaultAssetLibrary())
-  }
-
-  private var dockContext: Dock.Context? {
-    guard let engine = interactor.engine else {
-      return nil
-    }
-    return .init(engine: engine, eventHandler: interactor, assetLibrary: assetLibrary)
-  }
-
   @ViewBuilder var content: some View {
     HStack(spacing: 0) {
       if showFAB {
@@ -82,17 +63,9 @@ struct RootBottomBar: View {
         divider
       }
       ScrollView(.horizontal, showsIndicators: false) {
-        HStack(spacing: 0) {
-          Group {
-            if let dockItems, let dockContext {
-              DockView(items: dockItems, context: dockContext)
-                .symbolRenderingMode(.monochrome)
-                .labelStyle(.bottomBar)
-            } else {
-              ForEach(items) {
-                button($0)
-              }
-            }
+        HStack(spacing: -2) {
+          ForEach(items) {
+            button($0)
           }
           .fixedSize()
         }
@@ -142,15 +115,10 @@ struct RootBottomBar: View {
     }
   }
 
-  @State private var isDockHidden = true
-
   var body: some View {
     content
-      .onPreferenceChange(DockHiddenKey.self) { newValue in
-        isDockHidden = newValue
-      }
       .background(alignment: .top) {
-        if !items.isEmpty || !isDockHidden {
+        if !items.isEmpty {
           Rectangle()
             .fill(colorScheme == .dark
               ? Color(uiColor: .systemBackground)

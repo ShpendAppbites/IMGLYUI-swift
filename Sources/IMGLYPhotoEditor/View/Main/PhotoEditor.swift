@@ -9,7 +9,6 @@ public struct PhotoEditor: View {
 
   @Environment(\.imglyOnCreate) private var onCreate
   @Environment(\.imglyOnExport) private var onExport
-  @Environment(\.imglyDockItems) private var dockItems
   private let settings: EngineSettings
 
   /// Creates a photo editor with settings.
@@ -46,20 +45,7 @@ public struct PhotoEditor: View {
         }
         try await onExport(engine, eventHandler)
       }
-      .imgly.dockItems { context in
-        if let dockItems {
-          try dockItems(context)
-        } else {
-          Dock.Buttons.adjustments()
-          Dock.Buttons.filter()
-          Dock.Buttons.effect()
-          Dock.Buttons.blur()
-          Dock.Buttons.crop()
-          Dock.Buttons.textLibrary()
-          Dock.Buttons.shapesLibrary()
-          Dock.Buttons.stickersLibrary()
-        }
-      }
+      .imgly.pageNavigation(true)
   }
 }
 
