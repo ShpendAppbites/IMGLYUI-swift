@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name                     = "IMGLYCoreUI"
-  s.version                  = "2-custom"
+  s.version                  = "1.0-custom"
   s.summary                  = "The core UI components for the various IMG.LY editors."
   s.homepage                 = "https://img.ly"
   s.license                  = { :type => "Commercial", :file => "LICENSE.md" }
@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   s.swift_version            = "5.10"
   s.cocoapods_version        = ">= 1.11.2"
   s.platform                 = { :ios => "16.0" }
-  s.dependency               "IMGLYCore", "2-custom"
+  s.dependency               "IMGLYCore", "1.0-custom"
   s.dependency               "Kingfisher", "~> 7.10.0"
   s.dependency               "SwiftUIIntrospect", "~> 1.1.2"
   s.pod_target_xcconfig      = {

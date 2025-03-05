@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name                     = "IMGLYPhotoEditor"
-  s.version                  = "2-custom"
+  s.version                  = "1.0-custom"
   s.summary                  = "A mobile editor providing versatile photo editing capabilities."
   s.homepage                 = "https://img.ly"
   s.license                  = { :type => "Commercial", :file => "LICENSE.md" }
@@ -17,8 +17,8 @@ Pod::Spec.new do |s|
   s.cocoapods_version        = ">= 1.11.2"
   s.platform                 = { :ios => "16.0" }
   
-  # Update dependency version for IMGLYEditor to 2-custom.
-  s.dependency               "IMGLYEditor", "2-custom"
+  # Update dependency version for IMGLYEditor to 1.0-custom.
+  s.dependency               "IMGLYEditor", "1.0-custom"
   
   s.pod_target_xcconfig      = {
     "SWIFT_OBJC_INTERFACE_HEADER_NAME" => "",
