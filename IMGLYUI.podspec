@@ -1,86 +1,34 @@
 Pod::Spec.new do |s|
-  s.name         = "IMGLYUI"
-  s.version      = "1.0.0-custom"
-  s.summary      = "An umbrella pod aggregating the IMG.LY iOS modules."
-  s.description  = <<-DESC
-    This pod aggregates all the IMG.LY iOS modules, including Core, CoreUI, Camera, Editor,
-    DesignEditor, VideoEditor, PhotoEditor, ApparelEditor, and PostcardEditor. It provides a single
-    dependency for projects that wish to integrate the full IMG.LY UI.
+  s.name             = "IMGLYUI"
+  s.version          = "1.0.0-custom"
+  s.summary          = "Minimal aggregator bridging target for IMG.LY modules"
+  s.description      = <<-DESC
+    This is a minimal bridging pod that depends on IMGLYCore, IMGLYEditor, etc.
+    It does not contain the actual source code for those modules.
   DESC
-  s.homepage     = "https://github.com/ShpendAppbites/IMGLYUI-swift"
-  s.license      = { :type => "MIT", :file => "LICENSE.md" }
-  s.authors      = { "Your Name" => "you@example.com" }
+  s.homepage         = "https://your-fork-url"
+  s.license          = { :type => "Commercial", :file => "LICENSE.md" }
+  s.authors          = { "You" => "you@example.com" }
   
-  # Use Swift 5.10 features (update this if your code actually needs 5.0)
+  # Swift version and platform
   s.swift_version    = "5.10"
-  s.swift_versions   = "5.10"
-  
-  # Declare the supported platform using standard shorthand syntax.
-  s.platform     = :ios, "16.0"
-  
-  # Set the source to your fork on GitHub (using branch or tag; for production, a tag is preferred)
-  s.source       = { :git => "https://github.com/ShpendAppbites/IMGLYUI-swift.git", :branch => "main" }
-  
-  # Define subspecs for each module.
-  
-  # Subspec: Core
-  # s.subspec "Core" do |core|
-  #   core.source_files = "Sources/IMGLYCore/**/*.{swift,h,m}"
-  # end
+  s.platform         = :ios, "16.0"
 
-  # # Subspec: CoreUI
-  # s.subspec "CoreUI" do |coreui|
-  #   coreui.source_files = "Sources/IMGLYCoreUI/**/*.{swift,h,m}"
-  #   coreui.resources    = "Sources/IMGLYCoreUI/Assets.xcassets"
-  #   coreui.dependency   "IMGLYUI/Core"
-  # end
+  # Minimal bridging source (a dummy file)
+  # Create a dummy Swift file in your repo, e.g. Bridging/IMGLYUI-dummy.swift
+  s.source_files     = "Bridging/IMGLYUI-dummy.swift"
 
-  # # Subspec: Camera
-  # s.subspec "Camera" do |camera|
-  #   camera.source_files = "Sources/IMGLYCamera/**/*.{swift,h,m}"
-  #   camera.resources    = "Sources/IMGLYCamera/Assets.xcassets"
-  #   camera.dependency   "IMGLYUI/CoreUI"
-  # end
+  # The aggregator doesn't actually contain submodule code; it references them as dependencies
+  s.dependency "IMGLYCore", "1.0.0-custom"
+  s.dependency "IMGLYCoreUI", "1.0.0-custom"
+  s.dependency "IMGLYCamera", "1.0.0-custom"
+  s.dependency "IMGLYEditor", "1.0.0-custom"
+  s.dependency "IMGLYVideoEditor", "1.0.0-custom"
+  s.dependency "IMGLYDesignEditor", "1.0.0-custom"
+  s.dependency "IMGLYPhotoEditor", "1.0.0-custom"
+  s.dependency "IMGLYApparelEditor", "1.0.0-custom"
+  s.dependency "IMGLYPostcardEditor", "1.0.0-custom"
 
-  # # Subspec: Editor
-  # s.subspec "Editor" do |editor|
-  #   editor.source_files = "Sources/IMGLYEditor/**/*.{swift,h,m}"
-  #   editor.resources    = "Sources/IMGLYEditor/Assets.xcassets"
-  #   editor.dependency   "IMGLYUI/Camera"
-  # end
-
-  # # Subspec: DesignEditor
-  # s.subspec "DesignEditor" do |design|
-  #   design.source_files = "Sources/IMGLYDesignEditor/**/*.{swift,h,m}"
-  #   design.resources    = "Sources/IMGLYDesignEditor/Resources/*"
-  #   design.dependency   "IMGLYUI/Editor"
-  # end
-
-  # # Subspec: VideoEditor
-  # s.subspec "VideoEditor" do |video|
-  #   video.source_files = "Sources/IMGLYVideoEditor/**/*.{swift,h,m}"
-  #   video.resources    = "Sources/IMGLYVideoEditor/Resources/*"
-  #   video.dependency   "IMGLYUI/Editor"
-  # end
-
-  # # Subspec: PhotoEditor
-  # s.subspec "PhotoEditor" do |photo|
-  #   photo.source_files = "Sources/IMGLYPhotoEditor/**/*.{swift,h,m}"
-  #   photo.resources    = "Sources/IMGLYPhotoEditor/Resources/*"
-  #   photo.dependency   "IMGLYUI/Editor"
-  # end
-
-  # # Subspec: ApparelEditor
-  # s.subspec "ApparelEditor" do |apparel|
-  #   apparel.source_files = "Sources/IMGLYApparelEditor/**/*.{swift,h,m}"
-  #   apparel.resources    = "Sources/IMGLYApparelEditor/Resources/*"
-  #   apparel.dependency   "IMGLYUI/Editor"
-  # end
-
-  # # Subspec: PostcardEditor
-  # s.subspec "PostcardEditor" do |postcard|
-  #   postcard.source_files = "Sources/IMGLYPostcardEditor/**/*.{swift,h,m}"
-  #   postcard.resources    = "Sources/IMGLYPostcardEditor/Resources/*"
-  #   postcard.dependency   "IMGLYUI/Editor"
-  # end
+  # Point to your fork for the aggregator
+  s.source = { :git => "https://github.com/ShpendAppbites/IMGLYUI-swift.git", :branch => "main" }
 end
