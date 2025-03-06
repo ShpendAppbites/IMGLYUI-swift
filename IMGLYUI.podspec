@@ -24,63 +24,63 @@ Pod::Spec.new do |s|
   # Define subspecs for each module.
   
   # Subspec: Core
-  s.subspec "Core" do |core|
-    core.source_files = "Sources/IMGLYCore/**/*.{swift,h,m}"
-  end
+  # s.subspec "Core" do |core|
+  #   core.source_files = "Sources/IMGLYCore/**/*.{swift,h,m}"
+  # end
 
-  # Subspec: CoreUI
-  s.subspec "CoreUI" do |coreui|
-    coreui.source_files = "Sources/IMGLYCoreUI/**/*.{swift,h,m}"
-    coreui.resources    = "Sources/IMGLYCoreUI/Assets.xcassets"
-    coreui.dependency   "IMGLYUI/Core"
-  end
+  # # Subspec: CoreUI
+  # s.subspec "CoreUI" do |coreui|
+  #   coreui.source_files = "Sources/IMGLYCoreUI/**/*.{swift,h,m}"
+  #   coreui.resources    = "Sources/IMGLYCoreUI/Assets.xcassets"
+  #   coreui.dependency   "IMGLYUI/Core"
+  # end
 
-  # Subspec: Camera
-  s.subspec "Camera" do |camera|
-    camera.source_files = "Sources/IMGLYCamera/**/*.{swift,h,m}"
-    camera.resources    = "Sources/IMGLYCamera/Assets.xcassets"
-    camera.dependency   "IMGLYUI/CoreUI"
-  end
+  # # Subspec: Camera
+  # s.subspec "Camera" do |camera|
+  #   camera.source_files = "Sources/IMGLYCamera/**/*.{swift,h,m}"
+  #   camera.resources    = "Sources/IMGLYCamera/Assets.xcassets"
+  #   camera.dependency   "IMGLYUI/CoreUI"
+  # end
 
-  # Subspec: Editor
-  s.subspec "Editor" do |editor|
-    editor.source_files = "Sources/IMGLYEditor/**/*.{swift,h,m}"
-    editor.resources    = "Sources/IMGLYEditor/Assets.xcassets"
-    editor.dependency   "IMGLYUI/Camera"
-  end
+  # # Subspec: Editor
+  # s.subspec "Editor" do |editor|
+  #   editor.source_files = "Sources/IMGLYEditor/**/*.{swift,h,m}"
+  #   editor.resources    = "Sources/IMGLYEditor/Assets.xcassets"
+  #   editor.dependency   "IMGLYUI/Camera"
+  # end
 
-  # Subspec: DesignEditor
-  s.subspec "DesignEditor" do |design|
-    design.source_files = "Sources/IMGLYDesignEditor/**/*.{swift,h,m}"
-    design.resources    = "Sources/IMGLYDesignEditor/Resources/*"
-    design.dependency   "IMGLYUI/Editor"
-  end
+  # # Subspec: DesignEditor
+  # s.subspec "DesignEditor" do |design|
+  #   design.source_files = "Sources/IMGLYDesignEditor/**/*.{swift,h,m}"
+  #   design.resources    = "Sources/IMGLYDesignEditor/Resources/*"
+  #   design.dependency   "IMGLYUI/Editor"
+  # end
 
-  # Subspec: VideoEditor
-  s.subspec "VideoEditor" do |video|
-    video.source_files = "Sources/IMGLYVideoEditor/**/*.{swift,h,m}"
-    video.resources    = "Sources/IMGLYVideoEditor/Resources/*"
-    video.dependency   "IMGLYUI/Editor"
-  end
+  # # Subspec: VideoEditor
+  # s.subspec "VideoEditor" do |video|
+  #   video.source_files = "Sources/IMGLYVideoEditor/**/*.{swift,h,m}"
+  #   video.resources    = "Sources/IMGLYVideoEditor/Resources/*"
+  #   video.dependency   "IMGLYUI/Editor"
+  # end
 
-  # Subspec: PhotoEditor
-  s.subspec "PhotoEditor" do |photo|
-    photo.source_files = "Sources/IMGLYPhotoEditor/**/*.{swift,h,m}"
-    photo.resources    = "Sources/IMGLYPhotoEditor/Resources/*"
-    photo.dependency   "IMGLYUI/Editor"
-  end
+  # # Subspec: PhotoEditor
+  # s.subspec "PhotoEditor" do |photo|
+  #   photo.source_files = "Sources/IMGLYPhotoEditor/**/*.{swift,h,m}"
+  #   photo.resources    = "Sources/IMGLYPhotoEditor/Resources/*"
+  #   photo.dependency   "IMGLYUI/Editor"
+  # end
 
-  # Subspec: ApparelEditor
-  s.subspec "ApparelEditor" do |apparel|
-    apparel.source_files = "Sources/IMGLYApparelEditor/**/*.{swift,h,m}"
-    apparel.resources    = "Sources/IMGLYApparelEditor/Resources/*"
-    apparel.dependency   "IMGLYUI/Editor"
-  end
+  # # Subspec: ApparelEditor
+  # s.subspec "ApparelEditor" do |apparel|
+  #   apparel.source_files = "Sources/IMGLYApparelEditor/**/*.{swift,h,m}"
+  #   apparel.resources    = "Sources/IMGLYApparelEditor/Resources/*"
+  #   apparel.dependency   "IMGLYUI/Editor"
+  # end
 
-  # Subspec: PostcardEditor
-  s.subspec "PostcardEditor" do |postcard|
-    postcard.source_files = "Sources/IMGLYPostcardEditor/**/*.{swift,h,m}"
-    postcard.resources    = "Sources/IMGLYPostcardEditor/Resources/*"
-    postcard.dependency   "IMGLYUI/Editor"
-  end
+  # # Subspec: PostcardEditor
+  # s.subspec "PostcardEditor" do |postcard|
+  #   postcard.source_files = "Sources/IMGLYPostcardEditor/**/*.{swift,h,m}"
+  #   postcard.resources    = "Sources/IMGLYPostcardEditor/Resources/*"
+  #   postcard.dependency   "IMGLYUI/Editor"
+  # end
 end
