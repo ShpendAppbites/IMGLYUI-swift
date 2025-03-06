@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'IMGLYUI'
-    s.version          = '1.0-custom'
+    s.version          = '1.0.0-custom'
     s.summary          = 'Your custom UI for IMGLY'
     s.description      = 'Fork with UI tweaks'
     s.homepage         = 'https://github.com/ShpendAppbites/IMGLYUI-swift'

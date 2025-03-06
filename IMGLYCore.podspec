@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name                     = "IMGLYCore"
-  s.version                  = "1.0-custom"
+  s.version                  = "1.0.0-custom"
   s.summary                  = "The core functionality for the various IMG.LY editors."
   s.homepage                 = "https://img.ly"
   s.license                  = { :type => "Commercial", :file => "LICENSE.md" }

@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name                     = "IMGLYVideoEditor"
-  s.version                  = "1.0-custom"
+  s.version                  = "1.0.0-custom"
   s.summary                  = "A mobile editor with versatile video editing capabilities for a broad range of video applications."
   s.homepage                 = "https://img.ly"
   s.license                  = { :type => "Commercial", :file => "LICENSE.md" }
@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
   s.platform                 = { :ios => "16.0" }
   
   # Update dependency on IMGLYEditor to use the custom version.
-  s.dependency               "IMGLYEditor", "1.0-custom"
+  s.dependency               "IMGLYEditor", "1.0.0-custom"
   
   s.pod_target_xcconfig      = {
     "SWIFT_OBJC_INTERFACE_HEADER_NAME" => "",
