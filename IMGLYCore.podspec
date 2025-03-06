@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.swift_versions           = "5.10"
   s.swift_version            = "5.10"
   s.cocoapods_version        = ">= 1.11.2"
-  s.platform                 = { :ios => "16.0" }
+  s.platform                 = :ios, "16.0"
   s.dependency               "IMGLYEngine"
   s.pod_target_xcconfig      = {
     "SWIFT_OBJC_INTERFACE_HEADER_NAME" => "",

@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
   s.authors                  = { "IMG.LY GmbH" => "contact@img.ly" }
   s.changelog                = "https://img.ly/docs/cesdk/changelog/"
   
-  # Update source to your fork and use the main branch.
+  # Use the standard tag/branch syntax.
   s.source                   = { :git => "https://github.com/ShpendAppbites/IMGLYUI-swift.git", :branch => "main" }
   
   s.source_files             = ["Bundle+.swift", "Sources/IMGLYVideoEditor/**/*.{swift}"]
@@ -15,9 +15,10 @@ Pod::Spec.new do |s|
   s.swift_versions           = "5.10"
   s.swift_version            = "5.10"
   s.cocoapods_version        = ">= 1.11.2"
-  s.platform                 = { :ios => "16.0" }
+  # Use the shorthand platform declaration:
+  s.platform                 = :ios, "16.0"
   
-  # Update dependency on IMGLYEditor to use the custom version.
+  # Dependency updated to your custom version.
   s.dependency               "IMGLYEditor", "1.0.0-custom"
   
   s.pod_target_xcconfig      = {

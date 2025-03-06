@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
   s.swift_versions           = "5.10"
   s.swift_version            = "5.10"
   s.cocoapods_version        = ">= 1.11.2"
-  s.platform                 = { :ios => "16.0" }
+  s.platform                 = :ios, "16.0"
   s.dependency               "IMGLYCore", "1.0.0-custom"
   s.dependency               "Kingfisher", "~> 7.10.0"
   s.dependency               "SwiftUIIntrospect", "~> 1.1.2"
