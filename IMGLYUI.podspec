@@ -25,13 +25,11 @@ Pod::Spec.new do |s|
   
   # Subspec: Core
   s.subspec "Core" do |core|
-    core.summary     = "Core functionality for IMG.LY editors."
     core.source_files = "Sources/IMGLYCore/**/*.{swift,h,m}"
   end
 
   # Subspec: CoreUI
   s.subspec "CoreUI" do |coreui|
-    coreui.summary      = "Core UI components for IMG.LY editors."
     coreui.source_files = "Sources/IMGLYCoreUI/**/*.{swift,h,m}"
     coreui.resources    = "Sources/IMGLYCoreUI/Assets.xcassets"
     coreui.dependency   "IMGLYUI/Core"
@@ -39,7 +37,6 @@ Pod::Spec.new do |s|
 
   # Subspec: Camera
   s.subspec "Camera" do |camera|
-    camera.summary      = "Camera functionality for IMG.LY editors."
     camera.source_files = "Sources/IMGLYCamera/**/*.{swift,h,m}"
     camera.resources    = "Sources/IMGLYCamera/Assets.xcassets"
     camera.dependency   "IMGLYUI/CoreUI"
@@ -47,7 +44,6 @@ Pod::Spec.new do |s|
 
   # Subspec: Editor
   s.subspec "Editor" do |editor|
-    editor.summary      = "Core editor functionality for IMG.LY editors."
     editor.source_files = "Sources/IMGLYEditor/**/*.{swift,h,m}"
     editor.resources    = "Sources/IMGLYEditor/Assets.xcassets"
     editor.dependency   "IMGLYUI/Camera"
@@ -55,7 +51,6 @@ Pod::Spec.new do |s|
 
   # Subspec: DesignEditor
   s.subspec "DesignEditor" do |design|
-    design.summary      = "Design editor module for IMG.LY editors."
     design.source_files = "Sources/IMGLYDesignEditor/**/*.{swift,h,m}"
     design.resources    = "Sources/IMGLYDesignEditor/Resources/*"
     design.dependency   "IMGLYUI/Editor"
@@ -63,7 +58,6 @@ Pod::Spec.new do |s|
 
   # Subspec: VideoEditor
   s.subspec "VideoEditor" do |video|
-    video.summary      = "Video editor module for IMG.LY editors."
     video.source_files = "Sources/IMGLYVideoEditor/**/*.{swift,h,m}"
     video.resources    = "Sources/IMGLYVideoEditor/Resources/*"
     video.dependency   "IMGLYUI/Editor"
@@ -71,7 +65,6 @@ Pod::Spec.new do |s|
 
   # Subspec: PhotoEditor
   s.subspec "PhotoEditor" do |photo|
-    photo.summary      = "Photo editor module for IMG.LY editors."
     photo.source_files = "Sources/IMGLYPhotoEditor/**/*.{swift,h,m}"
     photo.resources    = "Sources/IMGLYPhotoEditor/Resources/*"
     photo.dependency   "IMGLYUI/Editor"
@@ -79,7 +72,6 @@ Pod::Spec.new do |s|
 
   # Subspec: ApparelEditor
   s.subspec "ApparelEditor" do |apparel|
-    apparel.summary      = "Apparel editor module for IMG.LY editors."
     apparel.source_files = "Sources/IMGLYApparelEditor/**/*.{swift,h,m}"
     apparel.resources    = "Sources/IMGLYApparelEditor/Resources/*"
     apparel.dependency   "IMGLYUI/Editor"
@@ -87,7 +79,6 @@ Pod::Spec.new do |s|
 
   # Subspec: PostcardEditor
   s.subspec "PostcardEditor" do |postcard|
-    postcard.summary      = "Postcard editor module for IMG.LY editors."
     postcard.source_files = "Sources/IMGLYPostcardEditor/**/*.{swift,h,m}"
     postcard.resources    = "Sources/IMGLYPostcardEditor/Resources/*"
     postcard.dependency   "IMGLYUI/Editor"
