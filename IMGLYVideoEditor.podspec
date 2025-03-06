@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   s.swift_version            = "5.10"
   s.cocoapods_version        = ">= 1.11.2"
   # Use the shorthand platform declaration:
-  s.platform                 = :ios, "16.0"
+  s.platform                 = {:ios: "16.0"}
   
   # Dependency updated to your custom version.
   s.dependency               "IMGLYEditor", "1.0.0-custom"
